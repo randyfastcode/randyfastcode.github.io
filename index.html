@@ -54,6 +54,13 @@
             color: white;
             position: relative;
         }
+
+        #message {
+            font-size: 2rem;
+            color: #ff69b4;
+            margin-top: 20px;
+            display: none; /* Oculto por defecto */
+        }
     </style>
 </head>
 <body>
@@ -62,10 +69,13 @@
         <!-- GIF inicial (kawaii) -->
         <img id="gif" src="https://i.pinimg.com/originals/4f/b9/00/4fb90053735df67e1d32b8703d4cdbbb.gif" alt="Cute Gif" class="gif">
     </div>
-    <div class="buttons">
+    <div class="buttons" id="buttons">
         <button id="yes" onclick="love()">Claro</button>
         <button id="no" onmouseover="moveButton()">No</button>
     </div>
+
+    <!-- Mensaje que aparece después de hacer clic en "Claro" -->
+    <div id="message">I love you too!!!</div>
 
     <script>
         function moveButton() {
@@ -80,6 +90,12 @@
         function love() {
             // Cambia el GIF a un GIF enamorado
             document.getElementById("gif").src = "https://i.pinimg.com/originals/6c/6b/6a/6c6b6a36a3873181a105a4d64d3694af.gif";
+            
+            // Oculta los botones
+            document.getElementById("buttons").style.display = "none";
+            
+            // Muestra el mensaje "I love you too!!!"
+            document.getElementById("message").style.display = "block";
         }
     </script>
 </body>
