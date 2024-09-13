@@ -59,7 +59,8 @@
 <body>
     <h1>Do you love me?</h1>
     <div class="gif-container">
-        <img id="gif" src="https://media.giphy.com/media/3o7aCSDsne5ffSKdQA/giphy.gif" alt="Cute Gif" class="gif">
+        <!-- GIF inicial (kawaii) -->
+        <img id="gif" src="https://media.tenor.com/images/2ad98d1f6e9a3b7c8bb4b5bfc6c69543/tenor.gif" alt="Cute Gif" class="gif">
     </div>
     <div class="buttons">
         <button id="yes" onclick="love()">Claro</button>
@@ -69,15 +70,16 @@
     <script>
         function moveButton() {
             const button = document.getElementById("no");
-            const x = Math.floor(Math.random() * window.innerWidth - button.offsetWidth);
-            const y = Math.floor(Math.random() * window.innerHeight - button.offsetHeight);
+            const x = Math.floor(Math.random() * (window.innerWidth - button.offsetWidth));
+            const y = Math.floor(Math.random() * (window.innerHeight - button.offsetHeight));
             button.style.position = "absolute";
             button.style.left = `${x}px`;
             button.style.top = `${y}px`;
         }
 
         function love() {
-            document.getElementById("gif").src = "https://media.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy.gif";
+            // Cambia el GIF a un GIF enamorado
+            document.getElementById("gif").src = "https://media.tenor.com/images/0c3a3b7b2b918c7d390b7e4b0865b220/tenor.gif";
         }
     </script>
 </body>
