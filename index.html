@@ -1,20 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random No Button</title>
-    <link rel="stylesheet" href="style.css"/>
+    <title>Do You Love Me?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .gif-container {
+            margin: 20px;
+        }
+
+        .gif {
+            width: 200px;
+            height: auto;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #yes {
+            background-color: #8fbc8f;
+            color: white;
+        }
+
+        #no {
+            background-color: #f08080;
+            color: white;
+            position: relative;
+        }
+    </style>
 </head>
 <body>
-    <div class="wrapper">
-        <h2 class="question">Do you love me?</h2>
-        <img class="gif" alt="gif" src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbjJvdWZzYXc1NGJ6aGp1cDE3b2dyNnVzOGN1andkMjVrMmRzeGwwZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3OhXBaoR1tVPW/giphy.gif" />
-        <div class="btn-group">
-            <button class="yes-btn">Yes</button>
-            <button class="no-btn">No</button>
-        </div>
+    <h1>Do you love me?</h1>
+    <div class="gif-container">
+        <img id="gif" src="https://media.giphy.com/media/3o7aCSDsne5ffSKdQA/giphy.gif" alt="Cute Gif" class="gif">
     </div>
-    <script src="script.js"></script>
+    <div class="buttons">
+        <button id="yes" onclick="love()">Claro</button>
+        <button id="no" onmouseover="moveButton()">No</button>
+    </div>
+
+    <script>
+        function moveButton() {
+            const button = document.getElementById("no");
+            const x = Math.floor(Math.random() * window.innerWidth - button.offsetWidth);
+            const y = Math.floor(Math.random() * window.innerHeight - button.offsetHeight);
+            button.style.position = "absolute";
+            button.style.left = `${x}px`;
+            button.style.top = `${y}px`;
+        }
+
+        function love() {
+            document.getElementById("gif").src = "https://media.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy.gif";
+        }
+    </script>
 </body>
 </html>
