@@ -3,100 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Do You Love Me?</title>
+    <title>Ramirez Company</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            background-color: #f0f8ff;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 2.5rem;
+            padding: 0;
+            background-color: #f4f4f9;
             color: #333;
         }
 
-        .gif-container {
-            margin: 20px;
+        /* Estilos del header */
+        header {
+            background: linear-gradient(90deg, #0066ff, #00cc99);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .gif {
-            width: 200px;
-            height: auto;
-        }
-
-        .buttons {
+        /* Barra de navegación */
+        nav {
+            margin-top: 10px;
             display: flex;
-            gap: 20px;
+            justify-content: center;
+            gap: 30px;
         }
 
-        button {
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            border: none;
-            cursor: pointer;
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 8px 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
         }
 
-        #yes {
-            background-color: #8fbc8f;
-            color: white;
+        /* Título y subtítulo del header */
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 1.5px;
         }
 
-        #no {
-            background-color: #f08080;
-            color: white;
-            position: relative;
+        header p {
+            font-size: 1.3em;
+            margin: 10px 0 20px;
+            opacity: 0.9;
         }
 
-        #message {
-            font-size: 2rem;
-            color: #c22912;
-            margin-top: 20px;
-            display: none; /* Oculto por defecto */
+        section {
+            padding: 50px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
         }
+
+        .highlight {
+            color: #4CAF50;
+        }
+
+        .features, .about {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 40px 0;
+        }
+
+        .features img {
+            max-width: 250px;
+            border-radius: 20px;
+        }
+
+        .features h3, .about h3 {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+
+        .about p {
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
-    <h1>Do you love me?</h1>
-    <div class="gif-container">
-        <!-- GIF inicial (kawaii) -->
-        <img id="gif" src="https://i.pinimg.com/originals/4f/b9/00/4fb90053735df67e1d32b8703d4cdbbb.gif" alt="Cute Gif" class="gif">
+
+<header>
+    <h1>Ramirez Company</h1>
+    <p>El futuro en tus manos</p>
+
+    <nav>
+        <a href="#producto">Producto</a>
+        <a href="#caracteristicas">Características</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+</header>
+
+<section>
+    <div class="about" id="producto">
+        <h2>El nuevo <span class="highlight">XPhone Pro</span></h2>
+        <p>Te presentamos el <span class="highlight">XPhone Pro</span>, la última innovación en tecnología móvil. Con un diseño elegante, un rendimiento insuperable y características que revolucionan la experiencia del usuario, este dispositivo redefine el concepto de smartphones.</p>
     </div>
-    <div class="buttons" id="buttons">
-        <button id="yes" onclick="love()">Claro</button>
-        <button id="no" onmouseover="moveButton()">No</button>
+
+    <div class="features" id="caracteristicas">
+        <h3>Características principales</h3>
+        <img src="https://mac-center.com.do/cdn/shop/files/iPhone_15_Pro_Max_Blue_Titanium_PDP_Image_Position-1__COES_b98b326c-c318-424b-8909-91e5bcd17183.jpg?v=1721652596&width=823" alt="XPhone Pro">
+        <ul style="list-style-type:none; padding:0; text-align:left; max-width: 600px;">
+            <li><strong>✅ Cámara de 108MP</strong> - Captura cada detalle en alta definición</li>
+            <li><strong>✅ Pantalla AMOLED 6.8''</strong> - Colores vibrantes y negros profundos</li>
+            <li><strong>✅ Procesador Snapdragon 8 Gen 1</strong> - Velocidad y rendimiento sin límites</li>
+            <li><strong>✅ Batería de 5000 mAh</strong> - Duración para todo el día</li>
+        </ul>
     </div>
 
-    <!-- Mensaje que aparece después de hacer clic en "Claro" -->
-    <div id="message">I love you too!!!</div>
+    <button onclick="window.location.href='final.html'">Continuar</button>
+</section>
 
-    <script>
-        function moveButton() {
-            const button = document.getElementById("no");
-            const x = Math.floor(Math.random() * (window.innerWidth - button.offsetWidth));
-            const y = Math.floor(Math.random() * (window.innerHeight - button.offsetHeight));
-            button.style.position = "absolute";
-            button.style.left = `${x}px`;
-            button.style.top = `${y}px`;
-        }
+<footer id="contacto">
+    <p>© 2024 Ramirez Company | Todos los derechos reservados</p>
+</footer>
 
-        function love() {
-            // Cambia el GIF a un GIF enamorado
-            document.getElementById("gif").src = "https://i.pinimg.com/originals/6c/6b/6a/6c6b6a36a3873181a105a4d64d3694af.gif";
-            
-            // Oculta los botones
-            document.getElementById("buttons").style.display = "none";
-            
-            // Muestra el mensaje "I love you too!!!"
-            document.getElementById("message").style.display = "block";
-        }
-    </script>
 </body>
 </html>
