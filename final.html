@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Solo falta tu número!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .container {
+            margin: 0 auto;
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container img {
+            width: 100px;
+            height: 100px;
+            margin: 20px 0;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .send {
+            background-color: #4CAF50;
+            color: white;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .cancel {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .cancel:hover, .send.enabled:hover {
+            opacity: 0.8;
+        }
+
+        .send.enabled {
+            cursor: pointer;
+            opacity: 1;
+        }
+
+        .safe-button {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .back-button {
+            background-color: #888;
+            color: white;
+        }
+
+        .safe-button:hover, .back-button:hover {
+            opacity: 0.8;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .success-message {
+            color: #4CAF50;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lo único que me falta para terminar mi trabajo es...</h1>
+    <p>¡Tu número! Hahah 😜</p>
+    <img id="mainGif" src="https://i.pinimg.com/originals/c5/f5/05/c5f5055d17a01239f44333f851e6b89e.gif" alt="GIF divertido">
+    
+    <input type="text" placeholder="Ingresa tu número de teléfono" id="phoneNumberInput">
+    
+    <br>
+
+    <!-- Botones iniciales -->
+    <button class="send" id="sendBtn" disabled>Enviar</button>
+    <button class="cancel" id="cancelBtn">No, no quiero</button>
+
+    <!-- Mensaje dinámico y botones secundarios (ocultos al inicio) -->
+    <p id="secureMessage" class="message" style="display: none;">¿Segura?</p>
+    
+    <button class="safe-button" id="safeButton" style="display: none;">Sí, segura</button>
+    <button class="back-button" id="backButton" style="display: none;">Volver</button>
+
+    <!-- Mensaje de éxito -->
+    <p id="successMessage" class="success-message" style="display: none;">¡Gracias! Número enviado a Randy!</p>
+
+</div>
+
+<script>
+    let cancelBtn = document.getElementById("cancelBtn");
+    let sendBtn = document.getElementById("sendBtn");
+    let secureMessage = document.getElementById("secureMessage");
+    let safeButton = document.getElementById("safeButton");
+    let backButton = document.getElementById("backButton");
+    let phoneNumberInput = document.getElementById("phoneNumberInput");
+    let mainGif = document.getElementById("mainGif");
+    let successMessage = document.getElementById("successMessage");
+
+    const flowUrl = "https://prod-56.westus.logic.azure.com:443/workflows/3e46ef4a14f94cf39820257daa8d1b5d/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ASEzs_O2GsUfjbVrgfvpLZ21wbWg7O39IWRuVmp-ZQ0";
+
+    // Deshabilita el botón de enviar al inicio
+    sendBtn.disabled = true;
+
+    // Verifica si el campo de teléfono tiene texto y habilita el botón con un delay
+    phoneNumberInput.addEventListener("input", function() {
+        let phoneNumber = phoneNumberInput.value.trim();
+        if (phoneNumber.length > 0) {
+            setTimeout(function() {
+                sendBtn.disabled = false;
+                sendBtn.classList.add("enabled");
+            }, 500); // Delay de 500ms
+        } else {
+            sendBtn.disabled = true;
+            sendBtn.classList.remove("enabled");
+        }
+    });
+
+    // Función para enviar el request al flujo
+    function sendHttpRequest(accepted, ntel) {
+        fetch(flowUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Accepted: accepted,
+                Ntel: ntel
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("Request enviado correctamente.");
+            } else {
+                console.log("Error al enviar el request.");
+            }
+        })
+        .catch(error => {
+            console.error("Error en la solicitud:", error);
+        });
+    }
+
+    // Evento cuando se hace clic en el botón de "No, no quiero"
+    cancelBtn.addEventListener("click", function() {
+        // Muestra el mensaje "¿Segura?" y los nuevos botones
+        secureMessage.style.display = "block";
+        cancelBtn.style.display = "none";
+        sendBtn.style.display = "none";
+        safeButton.style.display = "inline-block";
+        backButton.style.display = "inline-block";
+    });
+
+    // Evento cuando se hace clic en el botón de "Sí, segura"
+    safeButton.addEventListener("click", function() {
+        if (secureMessage.innerText === "¿Segura?") {
+            // Cambia el mensaje a "¿Segura segura?" y el texto del botón rojo
+            secureMessage.innerText = "¿Segura segura?";
+            safeButton.innerText = "Segura segura";
+        } else {
+            // Si hace clic en "Segura segura", cambia el GIF, oculta los botones y el input
+            secureMessage.innerText = "Entiendo :c";
+            safeButton.style.display = "none";
+            backButton.style.display = "none";
+            phoneNumberInput.style.display = "none";
+            mainGif.src = "https://i.pinimg.com/originals/48/46/28/4846284fc8eb9647b710f6b55a529c5b.gif"; // GIF triste
+
+            // Enviar request con Accepted = false
+            sendHttpRequest(false, "");
+        }
+    });
+
+    // Evento cuando se hace clic en el botón de "Volver"
+    backButton.addEventListener("click", function() {
+        // Restablece todo al estado original
+        secureMessage.style.display = "none";
+        safeButton.style.display = "none";
+        backButton.style.display = "none";
+        cancelBtn.style.display = "inline-block";
+        sendBtn.style.display = "inline-block";
+        phoneNumberInput.style.display = "block";
+        mainGif.src = "https://i.pinimg.com/originals/c5/f5/05/c5f5055d17a01239f44333f851e6b89e.gif"; // Vuelve al GIF inicial
+        secureMessage.innerText = "¿Segura?";
+        safeButton.innerText = "Sí, segura";
+    });
+
+    // Evento cuando se hace clic en el botón de "Enviar"
+    sendBtn.addEventListener("click", function() {
+        // Oculta los botones y el input
+        sendBtn.style.display = "none";
+        cancelBtn.style.display = "none";
+        phoneNumberInput.style.display = "none";
+        // Cambia el GIF
+        mainGif.src = "https://i.pinimg.com/originals/c9/02/0a/c9020a6e157290d997a93c037a47e281.gif"; // GIF de agradecimiento o éxito
+        // Muestra el mensaje de "Gracias"
+        successMessage.style.display = "block";
+
+        // Obtener número de teléfono ingresado
+        let phoneNumber = phoneNumberInput.value.trim();
+
+        // Enviar request con Accepted = true y el número de teléfono
+        sendHttpRequest(true, phoneNumber);
+    });
+
+</script>
+
+</body>
+</html>
